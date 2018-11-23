@@ -1,0 +1,23 @@
+networks:
+  service:
+    driver: bridge
+services:
+  app:
+    build: ./dockerlized-app
+    container_name: app
+    net: service
+    ports:
+      - "8081:80"
+  proxy:
+    build: ./dockerlized-proxy
+    container_name: proxy
+    net: service
+    ports:
+      - "80:80"
+  server:
+    build: ./dockerlized-server
+    container_name: api
+    net: service
+    ports:
+      - "8080:80"
+version: "0.0.1"
