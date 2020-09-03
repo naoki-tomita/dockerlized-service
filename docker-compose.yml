@@ -1,6 +1,8 @@
 networks:
   service:
     driver: bridge
+  database:
+    driver: bridge
 services:
   app:
     build: ./dockerlized-app
@@ -17,7 +19,12 @@ services:
   server:
     build: ./dockerlized-server
     container_name: api
-    net: service
+    net:
+      - service
+      - database
     ports:
       - "8080:80"
+  database:
+    build: ./dockerlized-database
+    net: database
 version: "0.0.1"
